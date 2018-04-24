@@ -1,0 +1,186 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    android:orientation="horizontal"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:id="@+id/Graph"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="15" />
+
+    <LinearLayout
+        android:id="@+id/LL2"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="85"
+        android:orientation="vertical"
+        android:gravity="center_vertical|center_horizontal">
+
+        <TextView
+            android:id="@+id/tvBluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Bluetooth"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <Button
+            android:id="@+id/bConnect"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Connect"
+            android:textSize="10dp"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/bDisconnect"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Disconnect"
+            android:textSize="10dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tvControl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Control"
+            android:textSize="15dp"
+            android:textColor="@color/white" />
+
+        <ToggleButton
+            android:id="@+id/tbStream"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:checked="false"
+            android:textOff="Start"
+            android:textOn="Stop"
+            android:textColor="@color/white"/>
+
+        <ToggleButton
+            android:id="@+id/tbScroll"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:checked="true"
+            android:textOff="Auto Scroll X"
+            android:textOn="Auto Scroll X"
+            android:textColor="@color/white" />
+
+        <ToggleButton
+            android:id="@+id/tbLock"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:textOff="Scroll Off"
+            android:textOn="Scroll On"
+            android:textColor="@color/white"
+            android:checked="false" />
+
+        <LinearLayout
+            android:id="@+id/LLX"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="100" >
+
+            <Button
+                android:id="@+id/bXminus"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="50"
+                android:text="-"
+                android:textSize="12dp"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/bXplus"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="50"
+                android:text="+"
+                android:textSize="12dp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:gravity="top|center_vertical|fill_vertical|center_horizontal">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/BPM"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@drawable/heartbeat2"
+                android:text="BPM"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal">
+
+                <TextView
+                    android:text="Pulse Interval"
+                    android:layout_width="43dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView10"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textSize="10sp"
+                    android:layout_weight="0.30" />
+
+                <TextView
+                    android:text="IBI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/IBI"
+                    android:layout_weight="1"
+                    android:textSize="10sp"
+                    android:gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal">
+
+                <TextView
+                    android:text="Arrhythmia Estimation"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView12"
+                    android:textSize="10sp"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <TextView
+                    android:text="Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/arrythmiaStatus"
+                    android:layout_weight="0.76"
+                    android:textSize="10sp"
+                    android:gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
