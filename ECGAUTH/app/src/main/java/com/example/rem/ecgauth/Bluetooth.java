@@ -130,7 +130,7 @@ public class Bluetooth extends Activity implements OnItemClickListener{
 
                 }else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)){
                     int count=listAdapter.getCount();
-                    Toast.makeText(getApplicationContext(), "Search finished and found "+count+" devices", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Search finished and found "+count+" devices", Toast.LENGTH_SHORT).show();
 
                 }else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)){
                     if (btAdapter.getState() == btAdapter.STATE_OFF){
