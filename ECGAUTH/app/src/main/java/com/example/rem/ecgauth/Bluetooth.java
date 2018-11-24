@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,8 +17,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -57,6 +60,7 @@ public class Bluetooth extends Activity implements OnItemClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},1);
         init();
         if (btAdapter==null){
             Toast.makeText(getApplicationContext(), "No bluetooth detected", 0).show();
@@ -99,7 +103,7 @@ public class Bluetooth extends Activity implements OnItemClickListener{
         listView.setAdapter(listAdapter);
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         pairedDevices = new ArrayList<String>();
-        filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+
         devices = new ArrayList<BluetoothDevice>();
         receiver = new BroadcastReceiver(){
             @Override
@@ -110,17 +114,23 @@ public class Bluetooth extends Activity implements OnItemClickListener{
                     devices.add(device);
                     String s = "";
                     for(int a=0;a<pairedDevices.size();a++){
-                        if (device.getName().equals(pairedDevices.get(a))){
-                            //append
-                            s = "(Paired)";
-                            break;
+                        if(device.getName()!=null && pairedDevices.get(a)!=null){
+                            if (device.getName().equals(pairedDevices.get(a))){
+                                //append
+                                s = "(Paired)";
+                                listAdapter.add(device.getName()+" "+s+" "+"\n"+device.getAddress());
+                            }
                         }
+
                     }
-                    listAdapter.add(device.getName()+" "+s+" "+"\n"+device.getAddress());
+
 
                 }else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)){
+                    Toast.makeText(getApplicationContext(), "Searching for devices", Toast.LENGTH_SHORT).show();
 
                 }else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)){
+                    int count=listAdapter.getCount();
+                    Toast.makeText(getApplicationContext(), "Search finished and found "+count+" devices", Toast.LENGTH_SHORT).show();
 
                 }else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)){
                     if (btAdapter.getState() == btAdapter.STATE_OFF){
@@ -131,16 +141,18 @@ public class Bluetooth extends Activity implements OnItemClickListener{
 
         };
 
+        filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, filter);
-        IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         registerReceiver(receiver, filter);
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         registerReceiver(receiver, filter);
         filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        registerReceiver(receiver, filter);
     }
 
     @Override
-    protected void onPause() {
+    protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onPause();
         unregisterReceiver(receiver);
@@ -285,6 +297,20 @@ public class Bluetooth extends Activity implements OnItemClickListener{
             try {
                 mmSocket.close();
             } catch (IOException e) { }
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Log.d("asd", "granted");
+                }
+                return;
+            }
         }
     }
 

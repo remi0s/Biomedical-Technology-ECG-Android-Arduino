@@ -1,15 +1,18 @@
 package com.example.rem.ecgauth;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -79,7 +82,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         String bpm=new String(readBuf, 0, 80);
                         String ibi=new String(readBuf, 0, 80);
 
-                        Log.d("strIncom", strIncom);
+                        //Log.d("strIncom", strIncom);
 
                         if (strIncom.indexOf('.')==2 && strIncom.indexOf('s')==0){
                             strIncom = strIncom.replace("s", "");
@@ -170,6 +173,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         background.setBackgroundColor(Color.BLACK);
         init();
         ButtonInit();
+
     }
 
     void init(){
@@ -230,10 +234,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 Bluetooth.disconnect();
                 break;
             case R.id.bXminus:
-                if (Xview>1) Xview--;
+                if (Xview<30) Xview++;
                 break;
             case R.id.bXplus:
-                if (Xview<30) Xview++;
+                if (Xview>1) Xview--;
                 break;
             case R.id.tbLock:
                 if (tbLock.isChecked()){
@@ -260,6 +264,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 //break;
         }
     }
+
+
 
 
 }
